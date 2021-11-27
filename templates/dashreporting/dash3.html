@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- django dash plotly  -->
+{% load plotly_dash %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="page-body">
+        <!-- Product list start -->
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card prod-view">
+                    <div class="prod-item text-center">                        
+                        {%plotly_app name="SimpleExample2" ratio=0.4 %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Product list end -->
+    </div>
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

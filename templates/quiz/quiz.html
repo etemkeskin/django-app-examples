@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Quiz</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><strong> {{quiz.quiz_title | title}} </strong></h3>
+  
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i></button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                <div class="row">
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Quiz Code</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{quiz.quiz_code}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Quiz Duration</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{quiz.quiz_duration}} minutes</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-sm-4">
+                    <div class="info-box bg-light">
+                      <div class="info-box-content">
+                        <span class="info-box-text text-center text-muted">Quiz Datetime</span>
+                        <span class="info-box-number text-center text-muted mb-0">{{quiz.quiz_datetime}} <span>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+               <div class="row">
+                <div class="col-12 col-sm-8 col-md-8">
+                    <h5 class="mt-1 text-muted">About Quiz</h5>
+                    <p class="mt-1 text-muted">Marks per Right Answer : <strong>{{quiz.marks_per_right_answer}} point</strong>
+                      &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; Marks per Wrong Answer : <strong>-{{quiz.marks_per_wrong_answer}} point</strong>
+                      &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; Question Number :<strong> {{questions.count}}</strong> </p>
+                  </div>
+               </div>
+               
+              </div>
+              <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+                <h3 class="text-primary"><i class="fas fa-paint-brush"></i> Quiz Note</h3>
+                <p class="text-muted"> {{quiz.quiz_note}}</p> 
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+   <!-- iCheck -->
+ <div class="card container">
+    <div class="card-header">
+      <h3 class="card-title">Questions</h3>
+    </div>
+    {% for question in questions %}
+    <div class="card-body">
+        {% if question.image %}
+          <div class="container">
+            <img src="{{question.image.url}}"  class="mb-2" style="width:100%; max-width:800px; height: auto;" alt="Question-Image"> 
+          </div>
+        {% endif %}
+        <p><strong>{{ forloop.counter }}-)</strong> {{question.title | safe}}</p>
+      <!-- Minimal style -->
+          <!-- radio -->
+          <div class="form-group clearfix">
+            <div class="row">
+                <div class="icheck-primary d-inline">
+                <input type="radio" id="radioPrimary1" name="r1" >
+                <label for="radioPrimary1">
+                  <strong>A ) </strong> {{question.option_a}} 
+                </label>
+                </div>
+            </div>
+            <div class="row">
+            <div class="icheck-primary d-inline">
+                <input type="radio" id="radioPrimary2" name="r1">
+                <label for="radioPrimary2">
+                    <strong>B ) </strong> {{question.option_b}}
+                </label>
+              </div>
+            </div>
+            <div class="row">
+                <div class="icheck-primary d-inline">
+                <input type="radio" id="radioPrimary3" name="r1" d>
+                <label for="radioPrimary3">
+                    <strong>C ) </strong> {{question.option_c}}
+                </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="icheck-primary d-inline">
+                <input type="radio" id="radioPrimary4" name="r1" d>
+                <label for="radioPrimary4">
+                    <strong>D ) </strong> {{question.option_d}}
+                </label>
+                </div>
+            </div>
+            <div class="row float-right">
+              ANSWER : {{question.answer}}
+            </div>
+          </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+      
+    </div>
+    {% endfor %}
+  </div>
+  <!-- /.card -->
+      </section><br><br>
+      <!-- /.content -->
+  </div> 
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

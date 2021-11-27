@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} <!-- Crispy Forms --> 
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Categories</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+     <!-- Main content -->
+     <section class="content">
+      <div class="row">
+        <div class="col-12">     
+          <!-- /.card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Category List</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add New Category</button>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-striped">
+                <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Subcategory</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                <tbody>
+                {% for category in categories %}
+                {% if category.parent %}
+                <tr>
+                  <td>{{category.parent}}</td>
+                  <td>{{category.title}}</td>                                                   
+                <td class="project-actions text-right">
+                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-default-edit-{{category.id}}">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                    </button>
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default-delete-{{category.id}}">
+                        <i class="fas fa-trash">
+                        </i>
+                        Delete
+                    </button>
+                    <!-- /. Delete modal -->
+                    <form action="{%  url 'shop:category_update' category.id %}" method="POST">
+                        {% csrf_token %}
+                    <div class="modal fade" id="modal-default-edit-{{category.id}}">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Edit Category</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>                  
+                              <div class="modal-body">
+                                <div class="form-group ">
+                                  {% csrf_token %}
+                                  <div class="form-group">
+                                    <label for="inputStatus" class="float-left">Parent</label>
+                                    <select class="form-control-sm custom-select" name="parent">
+                                        <option selected value="{{category.parent}}">{{category.parent}}</option>                                     
+                                        {% for category in categories %}
+                                            {% if category.parent is None %}
+                                            <option value="{{category.id}}">{{category.title}}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                   </div>
+                                   <div class="form-group">
+                                    <label for="title-category" class="float-left">*Title</label>
+                                    <input type="text" id="title-category" class="form-control" name="title" value="{{category.title}}">
+                                </div>
+                                </div>
+                              </div>
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                              </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    </form>
+                     <!-- /. Delete modal -->
+                    <form action="{%  url 'shop:category_delete' category.id %}" method="POST">
+                        {% csrf_token %}
+                    <div class="modal fade" id="modal-default-delete-{{category.id}}">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="border-bottom:none;">                    
+                            <i class="fas fa-exclamation-circle fa-5x" style="margin:0 auto; color:#F8BB86;"></i>
+                            </div>
+                            <div class="modal-body text-muted" style="margin:0 auto;border-bottom:none;">
+                                <h3 >Are you sure to Delete?</h3>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">No, thanks</button>
+                            <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                    </form>
+                </td>
+                {% endif %}
+                {% endfor %}
+                </tr>                
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th></th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+      <!-- /.modal -->
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="modal fade" id="modal-default">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  {% csrf_token %}
+                  {{form | crispy}}
+                </div>
+              </div>
+              <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+      </form>
+      <!-- /.modal -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+<!-- DataTables -->
+<script src="{% static 'assets/plugins/datatables/jquery.dataTables.js' %} "></script>
+<script src="{% static 'assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js' %} "></script>
+<!-- page script -->
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
+{% endblock javascript %}

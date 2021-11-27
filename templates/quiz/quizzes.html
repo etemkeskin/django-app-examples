@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Quizzes</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">      
+      <div class="page-body">
+        <!-- Product list start -->
+        <div class="row">
+            <div class="col-12">      
+            <!-- /.card -->
+                <div class="card">
+                    <div class="card-header">
+                    <h3 class="card-title">Quiz List</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                    <table id="example1" class="table table-striped">
+                        <thead>
+                        <tr>
+                        <th>Code</th>
+                        <th>Title</th>
+                        <th>Duration</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for quiz in quizs %}
+                                <tr>
+                                    <td>{{quiz.quiz_code}}</td>
+                                    <td>{{quiz.quiz_title}}</td>
+                                    <td>{{quiz.quiz_duration}} min.</td>                  
+                                    <td></td>
+                                    <td></td>                                 
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-info btn-sm" href="{% url 'quiz:quiz_start' quiz.id %}">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Take Quiz
+                                        </a>
+                                    </td>
+                                </tr>                
+                            {% endfor %}                                
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Code</th>
+                            <th>Title</th>
+                            <th>Duration</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            <!-- /.card -->
+            </div>
+        </div>
+        <!-- Product list end -->    
+      </div>
+    </section>
+    </div>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

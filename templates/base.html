@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>djangorocket.com</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon icon -->
+  <link rel="icon" href="{% static 'logo_head.png' %}" type="image/x-icon">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css' %} ">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href=" {% static 'assets/dist/css/ionicons.min.css' %} ">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/toastr/toastr.min.css' %} ">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css' %} ">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{% static 'assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'assets/custom.css' %} ">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  {% block css %}
+  {% endblock css %}
+</head>
+{% if not user.is_authenticated %}
+  <body class="hold-transition layout-top-nav ">
+{% else %}
+  <body class="hold-transition sidebar-mini ">
+{% endif %}
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      {% if user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      {% endif %}
+      {% if not user.is_authenticated %}
+      <a href="{%  url 'main:home' %}" class="brand-link">
+        <img src="{% static 'logo.png' %}  "
+             alt="Django Rocket Logo"
+             class="brand-image"
+            >
+      </a> 
+      {% endif %}
+      <!-- to show active link -->
+      {% with url_name=request.resolver_match.url_name %}  
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{%  url 'main:home' %}" class="nav-link {% if url_name == 'home' %}active{% endif %}">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{%  url 'blog:posts' %}" class="nav-link {% if url_name == 'posts' %}active{% endif %}">Blog</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{%  url 'shop:products' %}" class="nav-link {% if url_name == 'products' %}active{% endif %}">Shop</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{%  url 'quiz:quizzes' %}" class="nav-link {% if url_name == 'quizzes' %}active{% endif %}">Quiz</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Dash Plotly</a>
+          <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+            <li><a href="{%  url 'dashreporting:dash_demo_one' %}" class="dropdown-item">Reporting 1 </a></li>
+            <li><a href="{%  url 'dashreporting:dash_demo_four' %}" class="dropdown-item">Sales Analysis</a></li>
+          </ul>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="{%  url 'main:contact' %}" class="nav-link {% if url_name == 'contact' %}active{% endif %}">Contact</a>
+        </li>
+      {% endwith %} 
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      {% if user.is_authenticated %}
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="{%  url 'shop:shopcart' %}">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="badge badge-primary navbar-badge">{{cart_count}}</span>
+        </a>
+      </li>
+      {% endif %} 
+      <!-- Actions Dropdown Menu -->
+      {% if user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
+          {% if user.profile.image %}
+            <img src="{{user.profile.image.url}}" width="30px" class="img-size-30 img-circle mr-1" alt="User-Profile-Image"> 
+          {% else %}
+            <img src="{% static 'avatar_1x.png' %}" width="30px" class="img-size-30 img-circle mr-1" alt="User-Profile-Image">
+          {% endif %}            
+          {{user.username}}
+          <i class="right fas fa-angle-down"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <a href="{%  url 'main:profile' %}" class="dropdown-item">
+            <i class="fas fa-user mr-2"></i> Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{%  url 'quiz:my_quizzes' %}" class="dropdown-item">
+            <i class="fas fa-copy mr-2"></i> My quizzes
+          </a>
+          <div class="dropdown-divider"></div>
+          <a href="{%  url 'logout' %}" class="dropdown-item">
+            <i class="fas fa-bell mr-2"></i> Logout
+          </a>
+        </div>
+      </li>
+      {% else %}
+      <a href="{%  url 'login' %}" class="btn btn-block btn-outline-secondary btn-flat btn-login">LOGIN</a>
+      {% endif %} 
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+  {% if user.is_authenticated %}
+    {% include 'sidebar.html' %}
+  {% endif %}
+
+  {% if messages %}
+    <div class="content-wrapper custom-alert">
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+          <div class="callout callout-success custom-callout-success">     
+            <p>{{ message }}</p>
+          </div>
+          {% endif %}
+          {% if message.tags == 'warning' %}
+            <div class="callout custom-callout custom-callout-warning">     
+              <p>{{ message }}</p>
+            </div>       
+          {% endif %}
+        {% endfor %}
+    </div>
+  {% endif %}
+  <!-- Content Wrapper. Contains page content -->
+  {% block content %}
+
+  {% endblock content %}
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 1.1.0
+    </div>
+    <strong>Copyright &copy; 2020 <a href="http:\\etemkeskin.com">etemkeskin.com</a>.</strong> All rights
+    reserved.
+  </footer>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="{% static 'assets/plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %} "></script>
+<!-- jQuery UI -->
+<script src="{% static 'assets/plugins/jquery-ui/jquery-ui.min.js' %} "></script>
+<!-- Toastr -->
+<script src="{% static 'assets/plugins/toastr/toastr.min.js' %} "></script>
+<!-- AdminLTE App -->
+<script src="{% static 'assets/dist/js/adminlte.min.js' %} "></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'assets/dist/js/demo.js' %} "></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S45S8L010J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S45S8L010J');
+</script>
+{% block javascript %}
+    
+{% endblock javascript %}
+</body>
+</html>

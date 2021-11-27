@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Todos</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <!-- TO DO List -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="ion ion-clipboard mr-1"></i>
+            To Do List
+          </h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Add item</button>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <ul class="todo-list" data-widget="todo-list">
+            {% for todo in todos %}
+            <!-- class="done" -->
+            <li {% if todo.status == True %} class="done" {% endif %}>
+              <!-- drag handle -->
+              <span class="handl">
+                <i class="fas fa-ellipsis-v"></i>
+                <i class="fas fa-ellipsis-v"></i>
+              </span>
+              <!-- checkbox -->
+              <div  class="icheck-primary d-inline ml-2">
+                <input type="checkbox" name="todo_status"  value="{{todo.status}}" id="todoCheck-{{todo.id}}" onclick="CompleteTaskForm('{{todo.id}}' ,'{{todo.status}}');" >
+                <label for="todoCheck-{{todo.id}}"></label>
+              </div>
+              <!-- todo text -->
+              <span class="text">{{todo.description}}</span>
+              <!-- Emphasis label -->
+              <!-- General tools such as edit or delete-->
+              <div class="tools">
+                <i class="fas fa-edit" data-toggle="modal" data-target="#modal-default-{{todo.id}}"></i>
+                <i class="fas fa-trash" data-toggle="modal" data-target="#modal-default-delete-{{todo.id}}"></i>
+              </div>
+            </li>
+            <!-- /. Delete modal -->
+            <form action="{%  url 'todo:todo_delete' todo.id %}" method="POST">
+              {% csrf_token %}
+            <div class="modal fade" id="modal-default-delete-{{todo.id}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header" style="border-bottom:none;">                    
+                    <i class="fas fa-exclamation-circle fa-5x" style="margin:0 auto; color:#F8BB86;"></i>
+                  </div>
+                  <div class="modal-body text-muted" style="margin:0 auto;border-bottom:none;">
+                      <h3 >Are you sure to Delete?</h3>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">No, thanks</button>
+                    <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            </form>
+            <!-- /. Edit modal -->
+            <form action="{%  url 'todo:todo_edit' todo.id %}" method="POST">
+              {% csrf_token %}
+            <div class="modal fade" id="modal-default-{{todo.id}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Edit todo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="3" placeholder="Create your task list..." name="description">{{todo.description}}</textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </div>
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+            </div>
+            </form>
+            <!-- /.modal -->
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- /.card-body -->
+        <!-- Pagination -->
+        <div class="card-footer clearfix">
+          {% if todos.has_other_pages %}
+            <ul class="pagination pagination-sm">
+              {% if todos.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page={{ todos.previous_page_number }}">&laquo;</a></li>
+              {% else %}
+                <li class="disabled page-item"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+              {% endif %}
+              {% for i in todos.paginator.page_range %}
+                {% if todos.number == i %}
+                  <li class="page-item active"><a class="page-link" href="#">{{ i }} </a><span class="sr-only">(current)</span></li>
+                {% else %}
+                  <li lass="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if todos.has_next %}
+                <li lass="page-item"><a class="page-link" href="?page={{ todos.next_page_number }}">&raquo;</a></li>
+              {% else %}
+                <li class="disabled page-item"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </div>
+      </div>
+      <!-- /.card -->
+      <!-- /.modal -->
+      <form action="" method="POST">
+        {% csrf_token %}
+      <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add todo</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <textarea class="form-control" rows="3" placeholder="Create your new task..." name="description"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      </form>
+      <!-- /.modal -->
+    </section>
+    <!-- /.content -->
+    </div>
+  </div>
+{% endblock content %}
+{% block javascript %}
+<script>  
+  function CompleteTaskForm(id){ 
+    var element_ID= "todoCheck-"+id;
+    var status = document.getElementById(element_ID).value;
+    if (status == "False") {
+      status = "True";
+      document.getElementById(element_ID).value = "True";
+    } else {
+      status = "False";
+      document.getElementById(element_ID).value = "False";
+    }
+    $(document).ready(function(){
+        $.ajax({
+            type: "POST",
+            url: '{% url "todo:complete_todo" %}',
+            data: {
+            'todo_id': id,
+            'todo_status': status,
+            'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+            },
+            dataType:  "json",
+            success:function(response){
+                toastr.success('Success!', 'Your action has been carried out');             
+            }
+        });
+      });
+    };
+</script>
+{% endblock javascript %}

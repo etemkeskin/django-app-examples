@@ -1,0 +1,151 @@
+{% load static %}
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{%  url 'main:home' %}" class="brand-link">
+      <img src="{% static 'logo_head.png' %}" style="margin-top: 2px;"
+           alt="Django Rocket Logo"
+           class="brand-image">
+      <span class="brand-text"><img src="{% static 'logo_tail.png' %}" style="margin-left:-10px;" alt="Django Rocket Logo"></span><strong><small>BETA</small> </strong>
+    </a>   
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          {% if user.profile.image %}
+            <img src="{{user.profile.image.url}}" width="30px" class="img-size-30 img-circle mr-1" alt="User-Profile-Image"> 
+          {% else %}
+            <img src="{% static 'assets/dist/img/user2-160x160.jpg' %}" width="30px" class="img-size-30 img-circle mr-1" alt="User-Profile-Image">
+          {% endif %}            
+        </div>
+        <div class="info">
+          <a href="{%  url 'main:profile' %}" class="d-block">{{user.username}}</a>
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dash Reporting
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{%  url 'dashreporting:dash_demo_one' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Reporting 1</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%  url 'dashreporting:dash_demo_four' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sales Analysis</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Quiz
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{%  url 'quiz:subject_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Subjects</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%  url 'quiz:quiz_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Quiz List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%  url 'quiz:question_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Questions</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-blog"></i>
+              <p>
+                Blog
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">             
+              <li class="nav-item">
+                <a href="{%  url 'blog:post_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Post List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%  url 'blog:post_create' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add New Post</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-cart-plus"></i>
+              <p>
+                Shop
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{%  url 'shop:category_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{%  url 'shop:product_list' %}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Products</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{%  url 'calendar_app:calendar' %}" class="nav-link">
+              <i class="nav-icon fas fa-calendar-alt"></i>
+              <p>
+                Calendar
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{%  url 'todo:todo_list' %}" class="nav-link">
+              <i class="nav-icon fas fa-bookmark"></i>
+              <p>
+                Todo
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  

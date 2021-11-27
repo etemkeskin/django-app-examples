@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Cart</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+        <div class="card mb-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> </th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Available</th>
+                                    <th scope="col" class="text-center">Quantity</th>
+                                    <th scope="col" class="text-right">Price</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for cart_product in cart_products %}
+                                <tr>
+                                    <td>
+                                        {% if cart_product.product.image %}
+                                        <img src="{{cart_product.product.image.url}}"  alt="Product Image" width="40" height="40"> 
+                                        {% else %}
+                                        <img src="{% static 'assets/dist/img/user2-160x160.jpg' %}"  alt="Product Image" width="40" height="40">
+                                        {% endif %}
+                                    </td>
+                                    <td>{{cart_product.product.title}}</td>
+                                    <td>In stock</td>
+                                    <td>
+                                        {{cart_product.quantity}}
+                                    </td>
+                                    <td class="text-right">                                     
+                                      {% if cart_product.product.discount_price %}
+                                        $ {{cart_product.product.discount_price}}                                                                        
+                                      {% else %}
+                                        ${{cart_product.product.price}}
+                                      {% endif %}                                    
+                                    </td>
+                                    <td class="text-right">
+                                        <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-default-delete-{{cart_product.product.id}}"><i class="fa fa-trash"></i> </button>
+                                         <!-- /. Delete modal -->
+                                        <form action="{%  url 'shop:remove_from_cart' cart_product.product.id %}" method="POST"> 
+                                            {% csrf_token %}
+                                          <div class="modal fade" id="modal-default-delete-{{cart_product.product.id}}">
+                                              <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                  <div class="modal-header" style="border-bottom:none;">                    
+                                                  <i class="fas fa-exclamation-circle fa-5x" style="margin:0 auto; color:#F8BB86;"></i>
+                                                  </div>
+                                                  <div class="modal-body text-muted" style="margin:0 auto;border-bottom:none;">
+                                                      <h3 >Are you sure to Delete?</h3>
+                                                  </div>
+                                                  <div class="modal-footer justify-content-between">
+                                                  <button type="button" class="btn btn-default" data-dismiss="modal">No, thanks</button>
+                                                  <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                                                  </div>
+                                              </div>
+                                              <!-- /.modal-content -->
+                                              </div>
+                                              <!-- /.modal-dialog -->
+                                          </div>
+                                        </form> 
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Sub-Total</td>
+                                    <td class="text-right">$ {{cart_total}}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>Total</strong></td>
+                                    <td class="text-right"><strong>$ {{cart_total}}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col mb-2">
+                    <div class="row">
+                        <div class="col-sm-12  col-md-6">
+                            <a href="{%  url 'shop:products' %}" class="btn btn-block btn-light">Continue Shopping</a>
+                        </div>
+                        <div class="col-sm-12 col-md-6 text-right">
+                            <a href="{%  url 'shop:checkout' %}" class="btn btn-lg btn-block btn-success text-uppercase">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+    <!-- /.content -->
+        </div>
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

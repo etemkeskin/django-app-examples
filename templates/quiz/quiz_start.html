@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">      
+      <div class="page-body">
+        <!-- Product list start -->
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">{{quiz.quiz_title}}</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table class="table table-bordered">
+                      <tbody>
+                        <tr>
+                            <td><strong>Quiz Code :</strong></td>
+                            <td>
+                              {{quiz.quiz_code}}
+                            </td>
+                          </tr>  
+                        <tr>
+                          <td><strong>Quiz Duration :</strong></td>
+                          <td>
+                            {{quiz.quiz_duration}} min.
+                          </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Question :</strong></td>
+                          <td>
+                            {{total_question}}
+                          </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Marks per right answer :</strong></td>
+                          <td>
+                            {{quiz.marks_per_right_answer}}
+                          </td>
+                        </tr>
+                        <tr>
+                        <td><strong>Marks per wrong answer :</strong></td>
+                          <td>
+                            {{quiz.marks_per_wrong_answer}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <a href="{% url 'quiz:quiz_test' quiz.id %}" class="btn btn-success btn-block mt-2">
+                        START QUIZ
+                    </a>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+              </div>
+        </div>
+        <!-- Product list end -->    
+      </div>
+    </section>
+    </div>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

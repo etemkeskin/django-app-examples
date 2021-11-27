@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Profile</h1>
+        </div>
+        <div class="col-sm-6">
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-3">
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  {% if user.profile.image %}
+                  <img src="{{user.profile.image.url}}" width="100px" class="img-size-30 img-circle mr-1"
+                    alt="User-Profile-Image">
+                  {% else %}
+                  <img src="{% static 'avatar_1x.png' %}" width="50px"
+                    class="img-size-30 img-circle mr-1" alt="User-Profile-Image">
+                  {% endif %}
+                </div>
+
+                <h3 class="profile-username text-center">{{user.first_name | capfirst}} {{user.last_name | capfirst}}
+                </h3>
+
+                <p class="text-muted text-center">{{user.profile.occupation | capfirst}}</p>
+
+                <div class="form-group">
+                  <label for="exampleInputFile">File input</label>
+                  <div class="input-group">
+
+                    <div class="custom-file">
+                      {{ profile_edit_form.image}}
+                      <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <!-- <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">Activity</a></li> -->
+                  <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Profile
+                      Settings</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class=" tab-pane" id="activity">
+                    <!-- Post -->
+                    <div class="post">
+                      <div class="user-block">
+                        <img class="img-circle img-bordered-sm" src="../../dist/img/user1-128x128.jpg" alt="user image">
+                        <span class="username">
+                          <a href="#">Jonathan Burke Jr.</a>
+                          <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                        </span>
+                        <span class="description">Shared publicly - 7:30 PM today</span>
+                      </div>
+                      <!-- /.user-block -->
+                      <p>
+                        Lorem ipsum represents a long-held tradition for designers,
+                        typographers and the like. Some people hate it and argue for
+                      </p>
+
+                      <p>
+                        <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                        <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                        <span class="float-right">
+                          <a href="#" class="link-black text-sm">
+                            <i class="far fa-comments mr-1"></i> Comments (5)
+                          </a>
+                        </span>
+                      </p>
+
+                      <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                    </div>
+                    <!-- /.post -->
+
+                  </div>
+
+                  <!-- /.tab-pane -->
+
+                  <div class="active tab-pane" id="settings">
+
+                    <div class="form-group row">
+                      <label for="inputName" class="col-sm-2 col-form-label">First Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputName" placeholder="First Name"
+                          name="first_name" value="{{first_name}}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputName2" class="col-sm-2 col-form-label">Last Name</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputName2" placeholder="Last Name" name="last_name"
+                          value="{{last_name}}">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputSkills" class="col-sm-2 col-form-label">Address</label>
+                      <div class="col-sm-10">
+                        {{ profile_edit_form.address}}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputSkills" class="col-sm-2 col-form-label">Country</label>
+                      <div class="col-sm-10">
+                        {{ profile_edit_form.country}}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputSkills" class="col-sm-2 col-form-label">Phone</label>
+                      <div class="col-sm-10">
+                        {{ profile_edit_form.phone}}
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="inputSkills" class="col-sm-2 col-form-label">Occupation</label>
+                      <div class="col-sm-10">
+                        {{ profile_edit_form.occupation}}
+                      </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                        <div class="col-sm-10">
+                          <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                        </div>
+                      </div> -->
+
+                    <!-- <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                            </label>
+                          </div>
+                        </div>
+                      </div> -->
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-danger">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav ">
+                  <!-- <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">Activity</a></li> -->
+                  <li class="nav-item"><span class="nav-link active " href="#password_update" data-toggle="tab"><h4>Password Update</h4> </span></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <!-- /.tab-pane -->
+
+                  <div class="active tab-pane" id="password_update">
+
+                    <div class="form-group row">
+                      <label for="inputName" class="col-sm-2 col-form-label">Password</label>
+                      <div class="col-sm-10">
+                        <a href="{%  url 'change-password' %}" class="btn btn-secondary"><i class="fas fa-key"></i>
+                          Password Update</a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+          
+        </div>
+
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </form>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

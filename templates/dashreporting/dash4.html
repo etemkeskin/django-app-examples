@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- django dash plotly  -->
+{% load plotly_dash %}
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    {%plotly_app name="SimpleExample5" ratio=1 %}
+    <!-- Main content -->
+    <section class="content">
+      <div class="page-body">
+            <!-- Product list start -->
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card mt-3">
+                        <div class="text-center ">                        
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Product list end -->
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+{% endblock content %}
+
+{% block javascript %}
+{% endblock javascript %}

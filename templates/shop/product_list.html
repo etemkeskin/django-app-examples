@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Products</h1>
+          </div>
+          <div class="col-sm-6">
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">      
+          <!-- /.card -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Product List</h3>
+              <div class="card-tools">
+                <a href="{%  url 'shop:product_create' %}" class="btn btn-info float-right" ><i class="fas fa-plus"></i> Add Product</a>
+              </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                <tr>
+                  <td>
+                    {% if product.image %}
+                      <img src="{{product.image.url}}" width="30px" class="img-size-50 mr-1" alt="User-Profile-Image"> 
+                    {% else %}
+                      <img src="{% static 'assets/dist/img/user2-160x160.jpg' %}" width="30px" class="img-size-30 img-circle mr-1" alt="User-Profile-Image">
+                    {% endif %}  
+                  </td>
+                  <td>{{product.title}}</td>
+                  <td>                    
+                    {% if product.discount_price %}
+                      ${{product.discount_price | floatformat:2}} <del>${{product.price | floatformat:2}}</del>                                                                       
+                    {% else %}
+                      ${{product.price | floatformat:2}}
+                    {% endif %}
+                  </td>
+                  <td>{{product.category.title}}</td>
+                </td>
+                <td class="project-actions text-right">
+                    <a class="btn btn-primary btn-sm" href="{{product.get_absolute_url}}">
+                        <i class="fas fa-folder">
+                        </i>
+                        View
+                    </a>
+                    <a class="btn btn-info btn-sm" href="{%  url 'shop:product_update' product.slug %}">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                    </a>
+                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-default-delete-{{product.id}}">
+                      <i class="fas fa-trash">
+                      </i>
+                      Delete
+                  </button>
+                  <!-- /. Delete modal -->
+                  <form action="{%  url 'shop:product_delete' product.id %}" method="POST">
+                    {% csrf_token %}
+                  <div class="modal fade" id="modal-default-delete-{{product.id}}">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header" style="border-bottom:none;">                    
+                          <i class="fas fa-exclamation-circle fa-5x" style="margin:0 auto; color:#F8BB86;"></i>
+                        </div>
+                        <div class="modal-body text-muted" style="margin:0 auto;border-bottom:none;">
+                            <h3 >Are you sure to Delete?</h3>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">No, thanks</button>
+                          <button type="submit" class="btn btn-primary">Yes, Delete it</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  </form>
+                </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                  <th>Image</th>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th></th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

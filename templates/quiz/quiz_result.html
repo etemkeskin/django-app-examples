@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">      
+      <div class="page-body">
+        <!-- Product list start -->
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">QUIZ RESULTS</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      QUIZ : <strong> {{student_exam.quiz.quiz_title}} </strong> 
+                    <table class="table table-bordered mt-2">
+                      <tbody>
+                        <tr>
+                            <td><strong>Quiz Code :</strong></td>
+                            <td>
+                              {{student_exam.quiz.quiz_code}}
+                            </td>
+                        </tr> 
+                        <tr>
+                            <td><strong>Total Question:</strong></td>
+                            <td>
+                                {{total_question}}
+                            </td>
+                        </tr> 
+                        <tr>
+                          <td><strong>Correct Answer :</strong></td>
+                          <td>
+                            {{correct_answer}}
+                          </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wrong Answer :</strong></td>
+                          <td>
+                            {{wrong_answer}}
+                          </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Point :</strong></td>
+                          <td>
+                            {{total_point}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <a href="{%  url 'quiz:my_quizzes' %}" class="btn btn-primary btn-block mt-2">
+                        GO TO MY QUIZ RESULTS
+                    </a>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+
+              </div>
+        </div>
+        <!-- Product list end -->    
+      </div>
+    </section>
+    </div>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

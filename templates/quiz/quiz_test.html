@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Quiz</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+  
+ <!-- iCheck -->
+ <div class="card card-success">
+    <div class="card-header">
+      <h3 class="card-title">Question</h3>
+    </div>
+    <form>
+        {% csrf_token %}
+        <div id="load_question">
+        <div class="card-body">
+            {% if question_1.image %}
+            <div class="container">
+                <img src="{{question_1.image.url}}"  class="mb-2" style="width:100%; max-width:800px; height: auto;" alt="Question-Image"> 
+            </div>
+            {% endif %}            
+            <p><strong><span id="quizQuestion">1-)</span></strong> {{question_1.title | safe}}</p>
+        <!-- Minimal style -->
+            <!-- radio -->
+            <div class="form-group clearfix">
+                <div class="row">
+                    <div class="icheck-primary d-inline">
+                    <input type="radio" id="radioPrimary1" name="answer" value="A">
+                    <label for="radioPrimary1">
+                    <strong>A ) </strong>  {{question_1.option_a}}
+                    </label>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="icheck-primary d-inline">
+                    <input type="radio" id="radioPrimary2" name="answer" value="B">
+                    <label for="radioPrimary2">
+                        <strong>B ) </strong>  {{question_1.option_b}}
+                    </label>
+                </div>
+                </div>
+                <div class="row">
+                    <div class="icheck-primary d-inline">
+                    <input type="radio" id="radioPrimary3" name="answer" value="C">
+                    <label for="radioPrimary3">
+                        <strong>C ) </strong> {{question_1.option_c}}
+                    </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="icheck-primary d-inline">
+                    <input type="radio" id="radioPrimary4" name="answer" value="D">
+                    <label for="radioPrimary4">
+                        <strong>D ) </strong> {{question_1.option_d}}
+                    </label>
+                    </div>
+                </div>
+            </div> 
+            <button type="button" class="btn btn-info btn-flat disabled">&laquo; Previous</button>
+            <button type="button" class="btn btn-info btn-flat" onclick="NextQuestion();">Next &raquo;</button>
+            <a href="{%  url 'quiz:quiz_result' student_exam.id %}" class="btn btn-info btn-flat float-right">Finish Quiz</a>
+        </div>
+    <!-- /.card-body -->
+            <input type="hidden" name="question_id" value="{{question_1.id}}">
+            <input type="hidden" name="student_exam" value="{{student_exam.id}}">
+            <input type="hidden" name="next_question_id" value="{{next_question.id}}">        
+        </div>
+    </form>
+    <div class="card-footer"></div>
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    var question_number = 1;
+    function NextQuestion(){
+        $(document).ready(function(){
+            
+            var question_id = $('input[name="question_id"]').val().trim();
+            var next_question_id = $('input[name="next_question_id"]').val().trim();
+            var student_exam = $('input[name="student_exam"]').val().trim();
+            var answer = $('input[type="radio"]:checked').val();
+            if (!answer){
+                answer = "empty";
+            }
+                $.ajax({
+                    type: "POST",
+                    url: '{% url "quiz:quiz_test_action" %}',
+                    data: {
+                    'question_id': question_id,
+                    'student_exam': student_exam,
+                    'answer': answer,
+                    'next_question_id': next_question_id,
+                    'next_previous' : 'next',
+                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success:function(response){
+                        console.log(response);
+                        $('#load_question').html(response);
+                        question_number = question_number + 1;                        
+                        html_data = `<span id="quizQuestion"><strong>${question_number}-)</strong></span>`
+                        $('#quizQuestion').html(html_data)                                                                                
+                    }
+                });
+            });
+    }
+    function PreviousQuestion(){
+        $(document).ready(function(){
+            var question_id = $('input[name="question_id"]').val().trim();
+            var next_question_id = $('input[name="next_question_id"]').val().trim();
+            var student_exam = $('input[name="student_exam"]').val().trim();
+            var answer = $('input[type="radio"]:checked').val();
+            if (!answer){answer = "empty";}
+                $.ajax({
+                    type: "POST",
+                    url: '{% url "quiz:quiz_test_action" %}',
+                    data: {
+                    'question_id': question_id,
+                    'student_exam': student_exam,
+                    'answer': answer,
+                    'next_question_id': next_question_id,
+                    'next_previous' : 'previous',
+                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                    },
+                    success:function(response){
+                        console.log(response);
+                        $('#load_question').html(response)
+                        question_number = question_number - 1;                        
+                        html_data = `<span id="quizQuestion"><strong>${question_number}-)</strong></span>`
+                        $('#quizQuestion').html(html_data)                                                                                           
+                    }
+                });
+            });
+    }
+</script>
+{% endblock javascript %}

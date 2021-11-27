@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header"></section>
+     <!-- Main content -->
+     <section class="content">
+      <div class="container">
+        <!-- Default box -->
+        <div class="card card-solid">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <h3 class="d-inline-block d-sm-none">LOWA Men’s Renegade GTX Mid Hiking Boots Review</h3>
+                <div class="col-12">
+                  {% if product.label == "new" %}
+                    <div class="new-product-badge">                                
+                      NEW
+                    </div>
+                  {% endif %}
+                  {% if product.discount_price %}
+                    <div class="sale-product-badge">                                
+                      SALE
+                    </div>
+                  {% endif %}
+                  {% if product.label == "free_shipping" %}
+                    <div class="free-product-badge">                                
+                      FREE SHIPPING
+                    </div>
+                  {% endif %}
+                  {% if product.image %}
+                      <img src="{{product.image.url}}" class="product-image" alt="Product Image"> 
+                    {% else %}
+                      <img src="{% static 'assets/dist/img/user2-160x160.jpg' %}" class="product-image" alt="Product Image">
+                    {% endif %}  
+                </div>
+                <div class="col-12 product-image-thumbs">
+                  {% if product.image %}
+                    <div class="product-image-thumb active"><img src="{{product.image.url}}" alt="Product Image"></div>
+                  {% else %}
+                    <img src="{% static 'assets/dist/img/user2-160x160.jpg' %}" class="product-image" alt="Product Image">
+                  {% endif %}
+                  
+                  {% for gallery in galleries %}
+                    {% if gallery.image %}
+                      <div class="product-image-thumb" ><img src="{{gallery.image.url}}" alt="Product Image"></div>
+                      {% endif %}
+                  {% endfor %}
+                </div>
+              </div>             
+              <div class="col-12 col-sm-6">
+                <span class="txt-muted d-inline-block">Product Code: <strong> {{product.code}} </strong> </span>
+                <span class="float-right">Availablity :
+                  {% if product.stock > 0 %} 
+                   <span style="color: green;"> In Stock </span>
+                  {% else %}
+                  <span style="color: rgb(128, 0, 6);"> Out of Stock </span>
+                  {% endif %}  
+                  </span>
+                <h3 class="my-3">{{product.title}}</h3>
+                <p>{{product.short_description}}</p>  
+                <hr>
+                <div class="bg-gray py-2 px-3 mt-4">
+                  <h2 class="mb-0">
+                    {% if product.discount_price %}
+                      <span>${{product.discount_price | floatformat:2}}</span>
+                      <span class="mr-1">
+                        <small class="old-price"><i class="icofont icofont-cur-dollar"></i><del>${{product.price | floatformat:2}}</del></small>                                    
+                      </span>                                 
+                    {% else %}
+                      <span>${{product.price | floatformat:2}}</span>
+                    {% endif %}
+                  </h2>
+                </div>  
+                <div class="mt-4">
+                  <form  method="POST" action="{%  url 'shop:add-to-cart' product.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-primary btn-lg btn-flat" type="submit">
+                        <i class="fas fa-cart-plus fa-lg mr-2"></i> 
+                        Add to Cart
+                    </button>
+                  </form>
+                </div>  
+              </div>
+            </div>
+            <div class="row mt-4">
+              <nav class="w-100">
+                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Description</a>
+                </div>
+              </nav>
+              <div class="tab-content p-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> 
+                  {{product.description}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        </div>
+      </section>
+      <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

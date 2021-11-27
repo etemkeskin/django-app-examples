@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="container">
+    <!-- Content Header (Page header) -->
+    <br>
+    <div class="alert alert-info alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+      <h6><i class="icon fas fa-info"></i>Products are for demo purposes! </h6>
+    </div>
+    <!-- Main content -->
+    <section class="content">      
+      <div class="page-body">
+        <!-- Product list start -->
+        <div class="row">
+            {% for product in products %}
+            <div class="col-xl-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="card prod-view">
+                    <div class="prod-item text-center">
+                        <div class="prod-img">
+                            {% if product.label == "new" %}
+                              <div class="new-product-badge">                                
+                                NEW
+                              </div>
+                            {% endif %}
+                            {% if product.discount_price %}
+                              <div class="sale-product-badge">                                
+                                SALE
+                              </div>
+                            {% endif %}
+                            {% if product.label == "free_shipping" %}
+                              <div class="free-product-badge">                                
+                                FREE SHIPPING
+                              </div>
+                            {% endif %}
+                            {% if product.image %}
+                            <a href="{{product.get_absolute_url}}" class="hvr-shrink">
+                                <img src="{{product.image.url}}" class="img-fluid o-hidden" width="280" height="250" alt="prod1.jpg">
+                            </a>
+                            {% else %}
+                            <a href="#!" class="hvr-shrink">
+                                <img src="..\files\assets\images\product\p1.jpg" class="img-fluid o-hidden" alt="prod1.jpg">
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="prod-info mt-2">
+                            <a href="{{product.get_absolute_url}}" class="txt-muted"><h4>{{product.title}}</h4></a>
+                            <span class="prod-price mt-2"><i class="icofont icofont-cur-dollar"></i>
+                                {% if product.discount_price %}
+                                  <span>${{product.discount_price | floatformat:2}}</span>
+                                  <span class="mr-1">
+                                    <small class="old-price"><i class="icofont icofont-cur-dollar"></i><del>${{product.price | floatformat:2}}</del></small>                                    
+                                  </span>                                 
+                                {% else %}
+                                  <span>${{product.price | floatformat:2}}</span>
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <!-- Product list end -->    
+      </div>
+    </section>
+    </div>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

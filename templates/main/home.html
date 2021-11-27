@@ -1,0 +1,442 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <div class="containe">
+      <!-- Main content -->
+      <section class="content">
+        <div class="row" style="margin: auto 0;padding: 0; width: 100%;">
+          <div class="col-md-12" style="padding:0;" >            
+          <div id="carousel-home-page" class="carousel slide carousel-fade" data-ride="carousel" style="height: 650px;">
+            <!--Indicators-->
+            <ol class="carousel-indicators">
+              <li data-target="#carousel-home-page" data-slide-to="0" class="active" style="background-color: #FF914D;
+              "></li>
+              <li data-target="#carousel-home-page" data-slide-to="1" style="background-color: #FF914D;" class=""></li>
+            </ol>
+            <!--/.Indicators-->
+            <style>
+              #slider1::before{
+                background-image: url({% static 'slider/slider13.png' %});
+              }
+
+              #slider2::before{
+                background-image: url({% static 'slider/slider14.jpeg' %});
+              }
+            </style>
+            <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+              <!--First slide-->
+              <div class="carousel-item active">
+                <div id="slider1" class="view full-page-intro" style="background-repeat: no-repeat; background-size: cover; height: 650px;">         
+                  <!-- Mask & flexbox options-->
+                  <div class="d-flex justify-content-center align-items-center">                
+                    <!-- Content -->
+                    <div class="container mt-5">                
+                      <!--Grid row-->
+                      <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">                
+                        <!--Grid column-->
+                        <div class="col-md-9 mb-4 text-center text-md-left">
+                          <h1 class="display-5 font-weight-bold" style="color: #FFF;">Backend Template with Django Web Framework
+                            </h1>
+                          <hr class="hr-light" width="600" align="left">
+                          <p style="color: #FFF;">
+                            <strong>- Increase your productivity with the project we prepared for you</strong> <br>
+                            <strong>- You can understand how a web application work.</strong> <br>
+                            <strong>- <span style="font-size: 20px;">6</span>  web application for now.</strong><br>
+                            <strong>- You can study by yourself with readable project.</strong><br>
+                            <strong>- Startups and Companies that use Django Framework train their employers</strong><br>
+                          </p>          
+                          <h5 class="display-5 font-weight-bold" style="color:#FF914D">You can sign up to examine Django Backend Template Project.</h5>          
+                          <p class="mb-4 d-none d-md-block">
+                            <strong style="color: #FFF;"> </strong>
+                          </p>                
+                          <a href="{%  url 'signup' %}" class="btn logo-green-button waves-effect waves-light">Signup to explore
+                          </a>                
+                        </div>
+                        <!--Grid column-->                                
+                      </div>
+                      <!--Grid row-->               
+                    </div>
+                    <!-- Content -->                
+                  </div>
+                  <!-- Mask & flexbox options-->                
+                </div>
+              </div>
+              <!--/First slide-->
+              <!--Second slide-->
+              <div class="carousel-item">
+                <div id="slider2" class="view full-page-intro" style="background-repeat: no-repeat; background-size: cover; height: 650px;">          
+                  <!-- Mask & flexbox options-->
+                  <div class="d-flex justify-content-center align-items-center ">                
+                    <!-- Content -->
+                    <div class="container mt-5">                
+                      <!--Grid row-->
+                      <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">                
+                        <!--Grid column-->
+                        <div class="col-md-9 mb-4 white-text text-center text-md-left">                
+                          <h1 class="display-5 font-weight-bold" style="color: #FFF;">You can try our other services</h1><br>                          
+                          <hr class="hr-light" width="500" align="left">
+                          <h3 class="display-5 font-weight-bold" style="color: #FFF;">Get instant help from django experts</h3>
+                          <p style="color: #FFF;">
+                            <strong>- You can get guidance on how to make web applications. </strong> <br>
+                            <strong>- You can get immediate help on your web application projects.  </strong><br>
+                            <strong>- You can get training on Django Web Framework. </strong><br>
+                            <strong>- And much more... </strong>
+                          </p>                
+                          <p class="mb-4 d-none d-md-block">
+                            <strong> </strong>
+                          </p>                
+                          <a href="{%  url 'main:contact' %}" class="btn logo-green-button waves-effect waves-light">For more information, contact us</a>                
+                        </div>
+                        <!--Grid column-->            
+                      </div>
+                      <!--Grid row-->                
+                    </div>
+                    <!-- Content -->                
+                  </div>
+                  <!-- Mask & flexbox options-->                
+                </div>
+              </div>
+              <!--/Second slide-->
+              <!--Controls-->
+            <a class="carousel-control-prev" href="#carousel-home-page" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-home-page" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+            <!--/.Controls-->
+            </div>
+            <!--/.Slides-->
+          </div>
+          </div>
+
+        <div class="container">  
+        <div class="row  justify-content-md-center mt-5">
+          <div class="col-md-8">
+              <div class="services-content">
+                  <h1 class="wow fadeInUp" data-wow-delay="0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInUp;">We take care our products feature rich</h1>
+                  <p class="wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                      Djangorockets one of the finest backend template in its category. 
+                  </p>
+              </div>
+          </div>
+          <div class="col-md-12 text-center">
+              <div class="services">
+                  <div class="row">
+                      <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                          <div class="services-icon">
+                            <i class="fas fa-cube fa-2x" style="color: deepskyblue;"></i>
+                          </div>
+                          <div class="services-description">
+                              <h1>6 Different Web Application </h1>
+                              <p>
+                                  Djangorocket is one of unique backend template which come with tons of ready to use feature. 
+                                  We continuous working on it to provide latest updates in Django Framework.
+                              </p>
+                          </div>
+                      </div>
+                      <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                          <div class="services-icon">
+                            <i class="fas fa-tasks fa-2x" style="color: greenyellow"></i>
+                          </div>
+                          <div class="services-description">
+                              <h1>Modular and Readable</h1>
+                              <p>
+                                Djangorocket applications are modular and readable for everyone.
+                              </p>
+                          </div>
+                      </div>
+                      <div class="col-sm-4 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                          <div class="services-icon">
+                            <i class="fas fa-code fa-2x" style="color: crimson"></i>
+                          </div>
+                          <div class="services-description">
+                              <h1>Rapid Project Development</h1>
+                              <p>
+                                  If You have a dream, dont wait to implement it. With Djangorocket, You can develop your project rapidly.  
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>    
+        </div>
+        <br> <hr> <br>
+        <div class="container">
+        <div class="row mt-3" style="background-color: #FFF;">
+          <section class="col-md-12 mt-5">
+            <h3 id="header3">We introduce new learning tool.</h3>
+            <hr class="text-center" style="width: 60px; height: 7px; border-radius: 3px; background-color: #44B78B!important;">
+            <br>
+            <!--Grid row-->
+            <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">      
+              <!--Grid column-->
+              <div class="col-lg-6 col-md-12 px-4">      
+                <!--First row-->
+                <div class="row">
+                  <div class="col-1 mr-3">
+                    <i class="fas fa-chalkboard-teacher fa-2x indigo-text"></i>
+                  </div>
+                  <div class="col-10">
+                    <h5 class="feature-title">If you want to boost your performance and train your work force.</h5>
+                  </div>
+                </div>
+                <!--/First row-->      
+                <div style="height:30px"></div>      
+                <!--Second row-->
+                <div class="row">
+                  <div class="col-1 mr-3">
+                    <i class="fas fa-hands-helping fa-2x teal-text"></i>
+                  </div>
+                  <div class="col-10">
+                    <h5 class="feature-title">Lots of different code patterns.</h5>
+                    <p></p>
+                  </div>
+                </div>
+                <!--/Second row-->      
+                <div style="height:30px"></div>    
+                <!--Third row-->
+                <div class="row">
+                  <div class="col-1 mr-3">
+                    <i class="fas fa-tasks fa-2x cyan-text"></i>
+                  </div>
+                  <div class="col-10">
+                    <h5 class="feature-title">Web application workflow</h5>
+                  </div>
+                </div>
+                <!--/Third row-->
+                <div style="height:30px"></div>
+                <!--Fourth row-->
+                <div class="row">
+                  <div class="col-1 mr-3">
+                    <i class="fas fa-user-friends fa-2x blue-text"></i>
+                  </div>
+                  <div class="col-10">
+                    <h5 class="feature-title">To create fast minimum viable product(MVP) of your project.</h5>
+                  </div>
+                </div>
+                <!--/Fourth row-->      
+              </div>
+              <!--/Grid column-->      
+              <!--Grid column-->
+              <div class="col-lg-6 col-md-12">
+                <img src="{% static 'slider/slider2.png' %}" class="figure-img img-fluid float-right" alt="for_busy_people">
+              </div>
+              <!--/Grid column-->
+            </div>
+            <!--/Grid row-->
+          </section>
+        </div>
+      </div>
+
+        <br> <hr> <br>
+      <div class="container">
+        <section>
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <h1 class="text-green text-center" style="color: #4e4e4e;">Features of Djangorocket Project</h1>
+            </div>
+            <div class="col-10">
+              <div class="accordion" id="accordionExample">
+                <div class="car" style="background-color: #FFF;">
+                  <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;background-color: #FFF;">
+                    <h5 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <i class="fa fa-angle-double-right mr-3 logo-green"></i> <strong>Django Features</strong> 
+                  </button>
+                  </h5>
+                  </div>    
+                  <div id="collapseOne" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <ul>
+                        <li>Login Page</li>
+                        <li>Signup page</li>
+                        <li>Django pagination</li>
+                        <li>Password update page</li>
+                        <li>Django Function Based CRUD(Create, Read, Update, Delete) processes</li>
+                        <li>Forgot password pages </li>
+                        <li>404 page </li>
+                        <li>Profile Page </li>
+                        <li>Image Uploading </li>
+                        <li>Django Forms Usage </li>
+                        <li>Alert Notification </li>
+                        <li>Django Signal  </li>
+                        <li>Logout </li>
+                        <li>try catch blocks </li>
+                        <li>Django MYSQL database usage </li>
+                        <li>Django Crispy Forms </li>
+                        <li>Data Table </li>
+                        <li>Django selected_related and prefetch_related query </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion" id="accordionExample">
+                  <div style="background-color: #FFF;">
+                    <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                      <h5 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="fa fa-angle-double-right mr-3 logo-green"></i> <strong>To Do App</strong> 
+                    </button>
+                    </h5>
+                    </div>      
+                    <div id="collapseTwo" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body">
+                        <ul>
+                          <li>Todo list </li>
+                          <li>Ajax request </li>
+                          <li>CRUD(Create, Read, Update, Delete) processes </li>
+                          <li>ajax alert notification</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion" id="accordionExample">
+                    <div class="car" style="background-color: #FFF;">
+                      <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                        <h5 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fa fa-angle-double-right mr-3 logo-green"></i> <strong>Blog App</strong> 
+                      </button>
+                      </h5>
+                      </div>        
+                      <div id="collapseThree" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                          <ul>
+                            <li>Post List Page </li>
+                            <li>Post Detail Page </li>
+                            <li>Post Create Page </li>
+                            <li>Slug url pattern </li>
+                            <li>ckeditor </li>
+                            <li>Search on Blog </li>
+                            <li>SEO friendly URL </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                      <div style="background-color: #FFF;">
+                        <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                          <h5 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="fa fa-angle-double-right mr-3 logo-green"></i> <strong>Ecommerce App</strong> 
+                        </button>
+                        </h5>
+                        </div>          
+                        <div id="collapseFive" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            <ul>
+                              <li>Shop cart page</li>
+                              <li>Checkout page</li>
+                              <li>Products page</li>
+                              <li>Product Detail Page</li>
+                              <li>Product Badge</li>
+                              <li>Category Page</li>
+                              <li>Dynamic subcategory load with Ajax</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion" id="accordionExample">
+                    <div style="background-color: #FFF;">
+                      <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                        <h5 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fa fa-angle-double-right mr-3 logo-green" ></i> <strong>Quiz App</strong> 
+                      </button>
+                      </h5>
+                      </div>        
+                      <div id="collapseSix" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                          <ul>
+                            <li>Post List Page </li>
+                            <li>Post Detail Page </li>
+                            <li>Post Create Page </li>
+                            <li>Slug url pattern </li>
+                            <li>ckeditor </li>
+                            <li>Search on Blog </li>
+                            <li>SEO friendly URL </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                      <div style="background-color: #FFF;">
+                        <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                          <h5 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="fa fa-angle-double-right mr-3 logo-green" ></i> <strong>Dash Plotly Reporting App</strong> 
+                        </button>
+                        </h5>
+                        </div>          
+                        <div id="collapseSeven" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            <ul>
+                              <li>Interactive Charts</li>
+                              <li>Simple Dash Plotly Page</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                      <div style="background-color: #FFF;">
+                        <div class="card-header" id="headingOne" style=" border-bottom-width: 2px;border-bottom-color: #4e4e4e;">
+                          <h5 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" style="color: #4e4e4e;" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="fa fa-angle-double-right mr-3 logo-green"></i> <strong>Calendar App</strong> 
+                        </button>
+                        </h5>
+                        </div>
+          
+                        <div id="collapseEight" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordionExample">
+                          <div class="card-body">
+                            <ul>
+                              <li>Create custom events</li>
+                              <li>Create schedule</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>	
+          </div>
+        </section>
+      </div>
+
+      <br><br><hr><br><br>
+
+        <div class="logo-green-background" style="min-height: 170px;padding-top: 5px;">
+          <div class="container mt-5 mb-3" style="color: #FFF;" >
+            <h2>For detailed information, please contact us</h2>
+            <p class="footer-contact-banner-title">
+              You will find lots of option, help, service and deal <a id="footer-contact-button" class="btn float-right" href="{%  url 'main:contact' %}">
+                For more information, Contact us</a>
+            </p>
+          </div>
+        </div>
+
+      </section>     
+    </div>
+
+    
+
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

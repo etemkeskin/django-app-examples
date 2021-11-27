@@ -1,0 +1,303 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <!-- Default box -->
+        <div class="card container">
+          <div class="card-header">
+            <h3 class="card-title">QUIZ RESULTS</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-5">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="chart-responsive"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <canvas id="pieChart" height="101" width="203" class="chartjs-render-monitor" style="display: block; width: 280px; height: 130px;"></canvas>
+                      </div>
+                      <!-- ./chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                      <ul class="chart-legend clearfix">
+                        <li><i class="far fa-circle text-success"></i> Correct</li>
+                        <li><i class="far fa-circle text-danger"></i> Wrong</li>
+                        <li><i class="far fa-circle text-warning"></i> Empty</li>
+                      </ul>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer bg-white p-0">
+                  <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        Marks per Correct Answer :  
+                        <span class="float-right text-success">{{marks_per_right_answer}} point</span>
+                    </li>
+                    <li class="nav-item">
+                        Marks per Wrong Answer : 
+                      <span class="float-right text-danger">-{{marks_per_wrong_answer}} point</span>
+                    </li>
+                  </ul>
+                </div>
+                <!-- /.footer -->
+            </div>
+            <div class="col-md-7">
+                <div class="card-body">
+                    QUIZ : <strong> {{student_exam.quiz.quiz_title}} </strong> 
+                  <table class="table  mt-2">
+                    <tbody>
+                      <tr>
+                          <td><strong>Quiz Code :</strong></td>
+                          <td>
+                            {{student_exam.quiz.quiz_code}}
+                          </td>
+                      </tr> 
+                      <tr>
+                          <td><strong>Total Question:</strong></td>
+                          <td>
+                              {{total_question}}
+                          </td>
+                      </tr> 
+                      <tr>
+                        <td><strong>Correct Answer :</strong></td>
+                        <td>
+                          {{correct_answer}}
+                        </td>
+                      </tr>
+                      <tr>
+                          <td><strong>Wrong Answer :</strong></td>
+                        <td>
+                          {{wrong_answer}}
+                        </td>
+                      </tr>
+                      <tr>
+                          <td><strong>Total Point :</strong></td>
+                        <td>
+                          {{total_point}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+          </div>
+
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+   <!-- iCheck -->
+  
+ <div class="card container">
+    <div class="card-header">
+      <h3 class="card-title">Questions</h3>
+    </div>
+    {% for quiz_question in quiz_questions %}
+    <div class="card-body">
+        {% if quiz_question.question.image %}
+          <div class="container">
+            <img src="{{quiz_question.question.image.url}}"  class="mb-2" style="width:100%; max-width:800px; height: auto;" alt="Question-Image"> 
+          </div>
+        {% endif %}
+        <p><strong>{{ forloop.counter }}-)</strong> {{quiz_question.question.title | safe}}</p>
+      <!-- Minimal style -->
+          <!-- radio -->
+          <div class="form-group clearfix">
+            <div class="row">
+                {% if quiz_question.answer == 'A' and  quiz_question.result == 'CORRECT'  %}
+                    <div class="icheck-primary d-inline" style="background-color:#32CD32; padding: 4px;">
+                        <input type="radio" id="radioPrimary1" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary1">
+                        <strong>A ) </strong> {{quiz_question.question.option_a}}   
+                        </label>
+                    </div>   
+                {% elif quiz_question.answer == 'A' and  quiz_question.result == 'WRONG' %}
+                    <div class="icheck-primary d-inline" style="background-color: #FA8072; padding: 4px;"></div>>
+                        <input type="radio" id="radioPrimary1" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary1">
+                        <strong>A ) </strong> {{quiz_question.question.option_a}}  
+                        </label>
+                    </div>
+                {% elif quiz_question.question.answer == 'A' %}
+                    <div class="icheck-primary d-inline" style="background-color:#32CD32; padding: 4px;">
+                        <input type="radio" id="radioPrimary1" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary1">
+                        <strong>A ) </strong> {{quiz_question.question.option_a}}   
+                        </label>
+                    </div> 
+                {% else %}
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary1" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary1">
+                        <strong>A ) </strong> {{quiz_question.question.option_a}}  
+                        </label>
+                    </div>  
+                {% endif %}                   
+            </div>
+            <div class="row">
+                {% if quiz_question.answer == 'B' and  quiz_question.result == 'CORRECT'  %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;">
+                        <input type="radio" id="radioPrimary2" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary2">
+                        <strong>B ) </strong> {{quiz_question.question.option_b}}
+                        </label>
+                    </div>   
+                {% elif quiz_question.answer == 'B' and  quiz_question.result == 'WRONG' %}
+                    <div class="icheck-primary d-inline" style="background-color: #FA8072;padding: 4px;">
+                        <input type="radio" id="radioPrimary2" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary2">
+                        <strong>B ) </strong> {{quiz_question.question.option_b}}
+                        </label>
+                    </div>
+                
+                {% elif quiz_question.question.answer == 'B' %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;">
+                        <input type="radio" id="radioPrimary2" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary2">
+                        <strong>B ) </strong> {{quiz_question.question.option_b}}
+                        </label>
+                    </div> 
+                {% else %}
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary2" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary2">
+                        <strong>B ) </strong> {{quiz_question.question.option_b}}
+                        </label>
+                    </div>  
+                {% endif %}                
+            </div>
+            <div class="row">
+                {% if quiz_question.answer == 'C' and  quiz_question.result == 'CORRECT'  %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;" >
+                        <input type="radio" id="radioPrimary3" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary3">
+                        <strong>C ) </strong> {{quiz_question.question.option_c}}
+                        </label>
+                    </div>   
+                {% elif quiz_question.answer == 'C' and  quiz_question.result == 'WRONG' %}
+                    <div class="icheck-primary d-inline" style="background-color: #FA8072;padding: 4px;">
+                        <input type="radio" id="radioPrimary3" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary3">
+                        <strong>C ) </strong> {{quiz_question.question.option_c}}
+                        </label>
+                    </div>
+                {% elif quiz_question.question.answer == 'C' %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;" >
+                        <input type="radio" id="radioPrimary3" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary3">
+                        <strong>C ) </strong> {{quiz_question.question.option_c}}
+                        </label>
+                    </div> 
+                {% else %}
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary3" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary3">
+                        <strong>C ) </strong> {{quiz_question.question.option_c}}
+                        </label>
+                    </div>
+                {% endif %}                
+            </div>
+            <div class="row">
+                {% if quiz_question.answer == 'D' and  quiz_question.result == 'CORRECT'  %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;">
+                        <input type="radio" id="radioPrimary4" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary4">
+                        <strong>D ) </strong> {{quiz_question.question.option_d}}
+                        </label>
+                    </div>   
+                {% elif quiz_question.answer == 'D' and  quiz_question.result == 'WRONG' %}
+                    <div class="icheck-primary d-inline" style="background-color: #FA8072;padding: 4px;">
+                        <input type="radio" id="radioPrimary4" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary4">
+                        <strong>D ) </strong> {{quiz_question.question.option_d}}
+                        </label>
+                    </div>
+                {% elif quiz_question.question.answer == 'D' %}
+                    <div class="icheck-primary d-inline" style="background-color: #32CD32;padding: 4px;">
+                        <input type="radio" id="radioPrimary4" name="r1{{quiz_question.id}}" disabled checked>
+                        <label for="radioPrimary4">
+                        <strong>D ) </strong> {{quiz_question.question.option_d}}
+                        </label>
+                    </div>
+                {% else %}
+                    <div class="icheck-primary d-inline">
+                        <input type="radio" id="radioPrimary4" name="r1{{quiz_question.id}}" disabled>
+                        <label for="radioPrimary4">
+                        <strong>D ) </strong> {{quiz_question.question.option_d}}
+                        </label>
+                    </div>
+                {% endif %}
+                
+            </div>
+            <div class="row float-right">
+              YOUR ANSWER : {{quiz_question.answer}}
+            </div>
+          </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+      
+    </div>
+    {% endfor %}
+  </div>
+  <!-- /.card -->
+      </section><br><br>
+      <!-- /.content -->
+  </div> 
+{% endblock content %}
+
+{% block javascript %}
+<!-- ChartJS -->
+<script src="{% static 'assets/plugins/chart.js/Chart.min.js' %} "></script>
+<script>
+  //-------------
+  //- PIE CHART -
+  //-------------
+  // Get context with jQuery - using jQuery's .get() method.
+  var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieData        = {
+      labels: [
+          'Correct', 
+          'Wrong',
+          'Empty', 
+      ],
+      datasets: [
+        {
+          data: [{{correct_answer}},{{correct_answer}}, 2],
+          backgroundColor : ['#00a65a', '#f56954', '#f39c12'],
+        }
+      ]
+    }
+    var pieOptions     = {
+      legend: {
+        display: false
+      }
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    var pieChart = new Chart(pieChartCanvas, {
+      type: 'doughnut',
+      data: pieData,
+      options: pieOptions      
+    })
+
+  //-----------------
+  //- END PIE CHART -
+  //-----------------
+</script>
+{% endblock javascript %}

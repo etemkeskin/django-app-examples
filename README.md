@@ -10,9 +10,10 @@
 
 ## Installation
 1. First import aws.sql to mysql database
-2. pip install requirements.txt 
-3. Django admin panel super admin user: admin@admin.com  and password: Django1234
-4. python manage.py runserver
+2. create mysql database user and change db user info in settings.py
+3. pip install requirements.txt 
+4. Django admin panel super admin user: admin@admin.com  and password: Django1234
+5. python manage.py runserver
 
 <img width="126" alt="sidebar" src="https://user-images.githubusercontent.com/22777238/143721410-72b44e24-7271-48dc-933a-5e0361bad1ad.PNG">
 <img width="790" alt="calendar" src="https://user-images.githubusercontent.com/22777238/143721412-7d259b10-47a9-4e49-a28a-7d8a6c0920ab.PNG">
